@@ -1,8 +1,11 @@
 import { useState } from 'react';
 
 const App = () => {
-  const [persons, setPersons] = useState([{ id: 1, name: 'Arto Hellas' }]);
+  const [persons, setPersons] = useState([
+    { id: 1, name: 'Arto Hellas', number: '4545555' },
+  ]);
   const [newName, setNewName] = useState('');
+  const [newNumber, setNewNumber] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -10,9 +13,11 @@ const App = () => {
     const newObject = {
       id: persons.length + 1,
       name: newName,
+      number: newNumber,
     };
 
-    const repetedName = persons.find( //metodo find para buscar la 1er coincidencia en el array
+    const repetedName = persons.find(
+      //metodo find para buscar la 1er coincidencia en el array
       (person) => person.name.toLowerCase() === newName.toLowerCase()
     );
     if (repetedName) {
@@ -24,10 +29,15 @@ const App = () => {
     //console.log(persons.length + 1);
     setPersons(persons.concat(newObject));
     setNewName('');
+    setNewNumber('');
   };
 
-  const handleInputChange = (e) => {
+  const handleInputName = (e) => {
     return setNewName(e.target.value);
+  };
+
+  const handleInputNumber = (e) => {
+    return setNewNumber(e.target.value);
   };
 
   return (
@@ -36,7 +46,11 @@ const App = () => {
       <form onSubmit={handleSubmit}>
         <div>
           name:
-          <input value={newName} onChange={handleInputChange} />
+          <input value={newName} onChange={handleInputName} />
+        </div>
+        <div>
+          number:
+          <input value={newNumber} onChange={handleInputNumber} />
         </div>
         <div>
           <button type="submit">add</button>
