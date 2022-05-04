@@ -6,10 +6,21 @@ const App = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const newObject = {
-      name: newName,
       id: persons.length + 1,
+      name: newName,
     };
+
+    const repetedName = persons.find( //metodo find para buscar la 1er coincidencia en el array
+      (person) => person.name.toLowerCase() === newName.toLowerCase()
+    );
+    if (repetedName) {
+      alert(`${newName} already exists bro!`);
+      newName('');
+      return;
+    }
+
     //console.log(persons.length + 1);
     setPersons(persons.concat(newObject));
     setNewName('');
