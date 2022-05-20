@@ -3,9 +3,15 @@ import { useState } from 'react';
 const App = () => {
   const [persons, setPersons] = useState([
     { id: 1, name: 'Arto Hellas', number: '4545555' },
+    { id: 2, name: 'Román Riquelme', number: '4545555' },
+    { id: 3, name: 'Guillermo Barros Schellotto', number: '4545555' },
+    { id: 4, name: 'Antonio Barijho', number: '4545555' },
+    { id: 4, name: 'Marcelo Delgado', number: '4545555' },
+    { id: 4, name: 'Martín Palermo', number: '4545555' },
   ]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
+  const [search, setSearch] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,9 +46,20 @@ const App = () => {
     return setNewNumber(e.target.value);
   };
 
+  const handleFilter = (e) => {
+    const { value } = e.target;
+    setSearch(value);
+  };
+
+
   return (
     <div>
       <h2>Phonebook</h2>
+      <div>
+        filter like in google
+        <input type="text" placeholder="searching..." onChange={handleFilter} />
+      </div>
+      <h2>add a new one</h2>
       <form onSubmit={handleSubmit}>
         <div>
           name:
