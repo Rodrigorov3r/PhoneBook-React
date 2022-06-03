@@ -46,12 +46,18 @@ const App = () => {
     return setNewNumber(e.target.value);
   };
 
+  //input search
   const handleFilter = (e) => {
     const { value } = e.target;
     setSearch(value);
   };
 
+  const arrFilter = search === '' 
+  ? persons 
+  : persons.filter((person)=>person.name.toLowerCase().includes(search.toLowerCase()))
 
+
+  console.log('impri', arrFilter);
   return (
     <div>
       <h2>Phonebook</h2>
