@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import Filter from './components/Filter';
+import FormAddNew from './components/FormAddNew';
+import Persons from './components/Persons';
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -60,39 +63,25 @@ const App = () => {
         );
 
   //array a mostrar en pantalla
-  const showFilter = (() => arrFilter.map((filtro) => (
-    <p key={filtro.id}>{filtro.name}</p>
-  )))();
+  const showFilter = (() =>
+    arrFilter.map((filtro) => <p key={filtro.id}>{filtro.name}</p>))();
 
-  console.log('impri', arrFilter);
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        filter like in google
-        <input type="text" placeholder="searching..." onChange={handleFilter} />
-        {search.trim() !== '' ? showFilter : null}
-      </div>
-      <h2>add a new one</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          name:
-          <input value={newName} onChange={handleInputName} />
-        </div>
-        <div>
-          number:
-          <input value={newNumber} onChange={handleInputNumber} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      <div>
-        {persons.map((item) => (
-          <p key={item.id}>{item.name}</p>
-        ))}
-      </div>
+      <Filter
+        handleFilter={handleFilter}
+        search={search}
+        showFilter={showFilter}
+      />
+      <FormAddNew
+        handleSubmit={handleSubmit}
+        newName={newName}
+        handleInputName={handleInputName}
+        newNumber={newNumber}
+        handleInputNumber={handleInputNumber}
+      />
+      <Persons persons={persons} />
     </div>
   );
 };
