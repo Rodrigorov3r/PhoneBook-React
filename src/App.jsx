@@ -60,17 +60,18 @@ const App = () => {
         );
 
   //array a mostrar en pantalla
-  const showFilter = (() =>
-    arrFilter.map((filtro) => <p key={filtro.id}>{filtro.name} {filtro.number}</p>))();
+  const showFilter = (() => arrFilter.map((filtro) => (
+    <p key={filtro.id}>{filtro.name}</p>
+  )))();
 
-  console.log('impri', showFilter);
+  console.log('impri', arrFilter);
   return (
     <div>
       <h2>Phonebook</h2>
       <div>
         filter like in google
         <input type="text" placeholder="searching..." onChange={handleFilter} />
-        {showFilter}
+        {search.trim() !== '' ? showFilter : null}
       </div>
       <h2>add a new one</h2>
       <form onSubmit={handleSubmit}>
@@ -86,6 +87,12 @@ const App = () => {
           <button type="submit">add</button>
         </div>
       </form>
+      <h2>Numbers</h2>
+      <div>
+        {persons.map((item) => (
+          <p key={item.id}>{item.name}</p>
+        ))}
+      </div>
     </div>
   );
 };
