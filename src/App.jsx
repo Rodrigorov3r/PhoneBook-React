@@ -6,8 +6,8 @@ const App = () => {
     { id: 2, name: 'Román Riquelme', number: '4545555' },
     { id: 3, name: 'Guillermo Barros Schellotto', number: '4545555' },
     { id: 4, name: 'Antonio Barijho', number: '4545555' },
-    { id: 4, name: 'Marcelo Delgado', number: '4545555' },
-    { id: 4, name: 'Martín Palermo', number: '4545555' },
+    { id: 5, name: 'Marcelo Delgado', number: '4545555' },
+    { id: 6, name: 'Martín Palermo', number: '4545555' },
   ]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
@@ -51,19 +51,26 @@ const App = () => {
     const { value } = e.target;
     setSearch(value);
   };
+  //filtro de busqueda
+  const arrFilter =
+    search === ''
+      ? persons
+      : persons.filter((person) =>
+          person.name.toLowerCase().includes(search.toLowerCase())
+        );
 
-  const arrFilter = search === '' 
-  ? persons 
-  : persons.filter((person)=>person.name.toLowerCase().includes(search.toLowerCase()))
+  //array a mostrar en pantalla
+  const showFilter = (() =>
+    arrFilter.map((filtro) => <p key={filtro.id}>{filtro.name} {filtro.number}</p>))();
 
-
-  console.log('impri', arrFilter);
+  console.log('impri', showFilter);
   return (
     <div>
       <h2>Phonebook</h2>
       <div>
         filter like in google
         <input type="text" placeholder="searching..." onChange={handleFilter} />
+        {showFilter}
       </div>
       <h2>add a new one</h2>
       <form onSubmit={handleSubmit}>
@@ -79,12 +86,6 @@ const App = () => {
           <button type="submit">add</button>
         </div>
       </form>
-      <h2>Numbers</h2>
-      <div>
-        {persons.map((item) => (
-          <p key={item.id}>{item.name}</p>
-        ))}
-      </div>
     </div>
   );
 };
