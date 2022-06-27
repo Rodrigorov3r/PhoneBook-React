@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import Filter from './components/Filter';
 import FormAddNew from './components/FormAddNew';
 import Persons from './components/Persons';
@@ -15,6 +16,16 @@ const App = () => {
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [search, setSearch] = useState('');
+  const [notes, setNotes] = useState([]);
+
+  useEffect(() => {
+    console.log('effect');
+    axios.get('http://localhost:3001/notes').then((res) => {
+      console.log('promise fullfield!!');
+      setNotes(res.data);
+    });
+  }, []);
+  console.log('render', notes.length, 'in total');
 
   const handleSubmit = (e) => {
     e.preventDefault();
